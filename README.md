@@ -1,9 +1,9 @@
 # Non-Fungible_Discount_Tokens
-Non-Fungible Discount Tokens for the project: Blockchain for Marketing Campaigns 
 
-Project name: Blockchain for Marketing Campaigns with Non-Fungible Discount Tokens
+Paper name: Blockchain for Marketing Campaigns with Non-Fungible Discount Tokens
 
-The project aims to register non-fungible tokens to a marketing campaign, it'll be possible to generating a Campaign ID, the campaign owner and a maximum budget to be used in the campaign.
+This is an project to used in Marketing Campaigns, in order to offer discounts in campaigns that generate a non-fungible tokens. A token manager that will be possible to decide the budget to put in the campaign and maximum numbers of tokens.  
+The present project can be applied in different areas, as markets, stores, supermarkets.
 
 Then, some parameters will be defined:
 - Get number of registered campaigns
