@@ -165,6 +165,11 @@ namespace Neo.SmartContract
          {
              return true;
          }
+         
+         public static bool RedeemVoucher(object[] args)
+         {
+             return true;
+         }
 
     
     }
