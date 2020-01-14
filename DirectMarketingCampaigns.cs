@@ -19,19 +19,20 @@ namespace Neo.SmartContract
         {
             if (Runtime.Trigger == TriggerType.Application)
             {
-                if (operation == "registerCampaign") return RegisterCampaign(args); // Register a campaign with: a maximun budget, campaignOwner
+                if (operation == "registerCampaign") return RegisterCampaign(args); // Register a campaign with: a maximun budget and campaignOwner
                 if (operation == "getRegisteredCampaigns") return GetRegisteredCampaigns(args); // Get number of registered campaigns
                 if (operation == "getCampaignBudget") return GetCampaignBudget(args); // Get campaign total budget
                 if (operation == "getCampaignOwner") return GetCampaignOwner(args); // Get campaign owner
-                if (operation == "registerDiscountVoucher") return RegisterDiscountVoucher(args); // Register discount voucher: voucherID, campaignID, number of vouchers, discount value, discount product, expire date (block)
-                if (operation == "getVoucherValue") return GetVoucherValue(args); // get voucher value: campaignID, voucherID
+                if (operation == "registerDiscountVoucher") return RegisterDiscountVoucher(args); // Register discount voucher: campaignID, number of vouchers, maximum discount value, discount product, expire date (block)
                 if (operation == "getProductNumberOfVouchers") return GetProductNumberOfVouchers(args); // get total number of vouchers: campaignID, voucherID
-                if (operation == "transferVoucher") return TransferVoucher(args); // transferVoucher: campaignID, voucherID, addressOfNewOwner
-                if (operation == "registerClients") return RegisterClients(args); // Register the profile of a client that is willing to participate in the DM campaigns
-                if (operation == "getClientVouchers") return GetClientVouchers(args); // List voucher owned by a client
-                if (operation == "setClientLimit") return setClientLimit(args); // Set maximum number of offers for a given client
+                if (operation == "transferVoucher") return TransferVoucher(args); // transferVoucher: campaignID, voucherID, addressOfNewOwner, discountID
+                if (operation == "getVoucherValue") return GetVoucherValue(args); // get voucher value: campaignID, voucherID, clientID
+                if (operation == "registerClients") return RegisterClients(args); // Register the profile of a client that is willing to participate in the DM campaigns: Specific data
+                if (operation == "getClientVouchers") return GetClientVouchers(args); // List vouchers owned by a client: clientID
+                if (operation == "setClientLimit") return setClientLimit(args); // Set maximum number of voucher to be received for a given client
                 if (operation == "changeOwner") return ChangeSCOwner(args); // Change Smart Contract Owner
                 if (operation == "changeCampaignOwner") return ChangeCampaignOwner(args); // Change Campaign Owner: campaignID
+                if (operation == "redeemVoucher") return RedeemVoucher(args); // Clients uses the voucher: voucherHash
             }
             return true;
         }
@@ -57,8 +58,6 @@ namespace Neo.SmartContract
             byte[] idAsByteArray = registeredCampaigns.AsByteArray();
             Storage.Put(idAsByteArray.Concat(PREFIX_REGISTERED_CAMPAIGNS_OWNER),cOwner);
             Storage.Put(idAsByteArray.Concat(PREFIX_REGISTERED_CAMPAIGNS_BUDGET),maxBudget);
-            
-            //epKey = Hash256(epKey);
             
             return registeredCampaigns;
         }
