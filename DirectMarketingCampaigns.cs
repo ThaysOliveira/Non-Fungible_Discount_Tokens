@@ -9,7 +9,7 @@ namespace Neo.SmartContract
 {
     public class DirectMarketingCampaigns : Framework.SmartContract
     {
-        public static readonly byte[] SCOwner = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y".ToScriptHash(); // Owner of the Smart Contract, able to Register Campaings
+        public static byte[] SCOwner = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y".ToScriptHash(); // Owner of the Smart Contract, able to Register Campaings
         private static readonly byte[] PREFIX_REGISTERED_CAMPAIGNS = "REGISTERED_CAMPAIGNS".AsByteArray();
         private static readonly byte[] PREFIX_REGISTERED_CAMPAIGNS_BUDGET = "REGISTERED_CAMPAIGNS_BUDGET".AsByteArray();
         private static readonly byte[] PREFIX_REGISTERED_CAMPAIGNS_OWNER = "REGISTERED_CAMPAIGNS_OWNER".AsByteArray();
