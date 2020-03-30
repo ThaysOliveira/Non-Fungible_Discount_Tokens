@@ -9,7 +9,8 @@ namespace Neo.SmartContract
 {
     public class DirectMarketingCampaigns : Framework.SmartContract
     {
-        public static byte[] SCOwner = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y".ToScriptHash(); // Owner of the Smart Contract, able to Register Campaings
+        private static readonly byte[] SCInitialOwner = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y".ToScriptHash(); // Owner of the Smart Contract, able to Register Campaings
+        private static readonly byte[] PREFIX_SC_OWNER = "REGISTERED_SC_OWNER".AsByteArray();
         private static readonly byte[] PREFIX_REGISTERED_CAMPAIGNS = "REGISTERED_CAMPAIGNS".AsByteArray();
         private static readonly byte[] PREFIX_REGISTERED_CAMPAIGNS_BUDGET = "REGISTERED_CAMPAIGNS_BUDGET".AsByteArray();
         private static readonly byte[] PREFIX_REGISTERED_CAMPAIGNS_OWNER = "REGISTERED_CAMPAIGNS_OWNER".AsByteArray();
@@ -19,6 +20,7 @@ namespace Neo.SmartContract
         {
             if (Runtime.Trigger == TriggerType.Application)
             {
+                if (operation == "deploy") return Deploy();
                 if (operation == "registerCampaign") return RegisterCampaign(args); // Register a campaign with: a maximun budget and campaignOwner
                 if (operation == "getRegisteredCampaigns") return GetRegisteredCampaigns(args); // Get number of registered campaigns
                 if (operation == "getCampaignBudget") return GetCampaignBudget(args); // Get campaign total budget
@@ -37,6 +39,19 @@ namespace Neo.SmartContract
             return true;
         }
         
+        
+        public static void Deploy()
+        {
+             if (!Runtime.CheckWitness(SCInitialOwner)) 
+             {
+                Storage.Put(REGISTERED_SC_OWNER,SCInitialOwner);
+                Runtime.Notify("Registering initial owner");
+                return 0;
+             }
+             return;
+        }
+         
+         
         public static BigInteger RegisterCampaign(object[] args)
         {
             if (!Runtime.CheckWitness(SCOwner)) 
